@@ -38,9 +38,11 @@ describe DateUtcParser, "Parsing:" do
 
   context "when the date is a valid date time format, and is a valid date, and is utc" do 
     let(:date) { "2012-05-12T20:46:51Z" }
+    let(:date2) { "2012-07-04 00:35:36 UTC" }
 
     it 'returns the parsed date' do
-      subject.should == Time.parse(date)
+      described_class.parse(date).should == Time.parse(date)
+      described_class.parse(date2).should == Time.parse(date2)
     end
   end
 

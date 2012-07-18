@@ -6,8 +6,9 @@ module DateUtcParser
     date.is_a?(Time) ? parse_from_time(date) : parse_from_string(date)
   end
 
-  def self.parse_from_string(date)
-    Time.parse(date) if date && date =~ iso8601_pattern
+  def self.parse_from_string(time)
+    parsed_time = Time.parse(time) if time
+    parsed_time if parsed_time && (time =~ iso8601_pattern || parsed_time.utc?)
   rescue ArgumentError
     # date could not be parsed
   end
