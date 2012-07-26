@@ -27,7 +27,7 @@ module DateUtcParser
   end
 
   def self.parse_from_time(date)
-    date.utc? ? date : date.utc
+    date.utc
   end
 end
 

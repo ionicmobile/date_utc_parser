@@ -1,5 +1,9 @@
+require 'ruby-debug'
 require_relative '../../lib/date_utc_parser'
 require 'time'
+require 'active_support/core_ext/numeric/time'
+require 'active_support/core_ext/time/zones'
+require 'active_support/core_ext/date/calculations'
 
 describe DateUtcParser, "Parsing:" do
   subject { described_class.parse(date) }
@@ -50,8 +54,21 @@ describe DateUtcParser, "Parsing:" do
     context 'and is a utc date' do
       let(:date) { Time.now.utc }
 
-      it "returns the time object" do
+      it "returns the utc time object" do
         subject.should == date
+      end
+    end
+
+    context 'and is a utc time with zone object' do
+      let(:date) { 2.weeks.ago }
+
+      before do
+        Time.zone = 'UTC'
+      end
+
+      it 'converts it to a standard utc time object' do
+        subject.should_not be_a(ActiveSupport::TimeWithZone)
+        subject.should be_utc
       end
     end
 
@@ -59,7 +76,6 @@ describe DateUtcParser, "Parsing:" do
       let(:date) { Time.now }
 
       it "returns the time object as utc" do
-        subject.utc?.should be_true
         subject.should == date.utc
       end
     end
