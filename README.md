@@ -1,3 +1,5 @@
+This is now being maintained by @coffeencoke at [this repo](https://github.com/coffeencoke/date_utc_parser)
+
 # Tired of Dating?
 
 Date UTC Parser was written so that I could guarantee to either get back a UTC Date Time object, or nil - while writing some API's for mobile apps.  That's all I wanted, and that's what this guy does.
